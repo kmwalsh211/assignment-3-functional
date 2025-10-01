@@ -9,6 +9,23 @@ import java.util.function.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * AI Collaboration Report:
+ * Tool: Gemini Code Agent
+ *
+ * Most Helpful Prompts:
+ * 1. "Explain why ____ specific test is failing"
+ * 2. "Explain Optional"
+ * 3. "Show me a cleaner way to write ____ method"
+ *
+ * Concepts Learned:
+ * - Key stream methods stream(), filter(), map(), flatmap(), collect(), etc.
+ * - The Optional type
+ * - Lambdas
+ * - Higher order functions
+ *
+ * Team: Kayla Walsh McCarter, AJ Mitchell, Saqlain Anjum
+ */
 public class TaskAnalyzer {
     private final List<Task> tasks;
 
