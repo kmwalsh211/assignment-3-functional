@@ -16,93 +16,106 @@ public class TaskAnalyzer {
         this.tasks = new ArrayList<>(tasks);
     }
 
-    // TODO: Implement using streams and filter
+    // TODO: DONE   Implement using streams and filter
     public List<Task> filterTasks(Predicate<Task> predicate) {
-        // Implementation needed
-        return null;
+        return tasks.stream()
+                .filter(predicate)
+                .collect(Collectors.toList());
     }
 
-    // TODO: Implement using Optional
+    // TODO: DONE    Implement using Optional
     public Optional<Task> findTaskById(Long id) {
-        // Implementation needed
-        return Optional.empty();
+        return tasks.stream()
+                .filter(task -> task.id().equals(id))
+                .findFirst();
     }
 
-    // TODO: Implement using streams, sorted, and limit
+    // TODO: DONE    Implement using streams, sorted, and limit
     public List<Task> getTopPriorityTasks(int limit) {
-        // Implementation needed
-        return null;
+        return tasks.stream()
+                .sorted(Comparator.comparing(Task::priority).reversed())
+                .limit(limit)
+                .collect(Collectors.toList());
     }
 
-    // TODO: Implement using streams and groupingBy
+    // TODO: DONE    Implement using streams and groupingBy
     public Map<Task.Status, List<Task>> groupByStatus() {
-        // Implementation needed
-        return null;
+        return tasks.stream()
+                .collect(Collectors.groupingBy(Task::status));
     }
 
-    // TODO: Implement using streams and partitioningBy
+    // TODO: DONE    Implement using streams and partitioningBy
     public Map<Boolean, List<Task>> partitionByOverdue() {
-        // Implementation needed
-        return null;
+        return tasks.stream()
+                .collect(Collectors.partitioningBy(Task::isOverdue));
     }
 
-    // TODO: Implement using streams, map, and collect
+    // TODO: DONE    Implement using streams, map, and collect
     public Set<String> getAllUniqueTags() {
-        // Implementation needed
-        return null;
+        return tasks.stream()
+                .flatMap(task -> task.tags().stream())
+                .collect(Collectors.toSet());
     }
 
-    // TODO: Implement using streams and reduce
+    // TODO: DONE    Implement using streams and reduce
     public Optional<Integer> getTotalEstimatedHours() {
-        // Implementation needed
-        return Optional.empty();
+        return tasks.stream()
+                .map(Task::estimatedHours)
+                .filter(Objects::nonNull)
+                .reduce(Integer::sum);
     }
 
-    // TODO: Implement using streams, map, and average
+    // TODO: DONE    Implement using streams, map, and average
     public OptionalDouble getAverageEstimatedHours() {
-        // Implementation needed
-        return OptionalDouble.empty();
+        return tasks.stream()
+                .map(Task::estimatedHours)
+                .filter(Objects::nonNull)
+                .mapToInt(Integer::intValue)
+                .average();
     }
 
-    // TODO: Implement using method references and map
+    // TODO: DONE   Implement using method references and map
     public List<String> getTaskTitles() {
-        // Implementation needed
-        return null;
+        return tasks.stream()
+                .map(Task::title)
+                .collect(Collectors.toList());
     }
 
-    // TODO: Implement using custom functional interface
+    // TODO: DONE    Implement using custom functional interface
     public List<Task> filterWithCustomPredicate(TaskPredicate predicate) {
-        // Implementation needed
-        return null;
+        return tasks.stream()
+                .filter(predicate)
+                .collect(Collectors.toList());
     }
 
-    // TODO: Implement using streams and flatMap
+    // TODO: DONE    Implement using streams and flatMap
     public List<String> getAllTagsSorted() {
-        // Implementation needed
-        return null;
+        return tasks.stream()
+                .flatMap(task -> task.tags().stream())
+                .sorted()
+                .collect(Collectors.toList());
     }
 
-    // TODO: Implement using streams and counting collector
+    // TODO: DONE    Implement using streams and counting collector
     public Map<Task.Priority, Long> countTasksByPriority() {
-        // Implementation needed
-        return null;
+        return tasks.stream()
+                .collect(Collectors.groupingBy(Task::priority, Collectors.counting()));
     }
 
-    // TODO: Implement using Optional operations
+    // TODO: DONE    Implement using Optional operations
     public String getTaskSummary(Long taskId) {
-        // Implementation needed
-        return "Task not found";
+        return findTaskById(taskId)
+                .map(task -> String.format("%s - %s", task.title(), task.status()))
+                .orElse("Task not found");
     }
 
-    // TODO: Implement using streams and anyMatch
+    // TODO: DONE    Implement using streams and anyMatch
     public boolean hasOverdueTasks() {
-        // Implementation needed
-        return false;
+        return tasks.stream().anyMatch(Task::isOverdue);
     }
 
-    // TODO: Implement using streams and allMatch
+    // TODO: DONE    Implement using streams and allMatch
     public boolean areAllTasksAssigned() {
-        // Implementation needed
-        return false;
+        return tasks.stream().allMatch(task -> task.status() != Task.Status.TODO);
     }
 }
